@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  outputFileTracingIncludes: {
+    "/**": ["./prisma/dev.db"],
+  },
   async headers() {
     return [
       {

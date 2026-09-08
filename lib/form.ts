@@ -1,4 +1,4 @@
-import { ZodError, type ZodSchema } from "zod";
+import { ZodError, type ZodType, type ZodTypeDef } from "zod";
 import type { ActionState } from "@/actions/types";
 
 export function fieldErrorsFrom(error: ZodError): Record<string, string> {
@@ -11,7 +11,10 @@ export function fieldErrorsFrom(error: ZodError): Record<string, string> {
 }
 
 /** Parses FormData with a Zod schema and returns UI-ready errors. */
-export function parseForm<T>(schema: ZodSchema<T>, formData: FormData): { data?: T; state?: ActionState } {
+export function parseForm<TOutput, TDef extends ZodTypeDef = ZodTypeDef, TInput = unknown>(
+  schema: ZodType<TOutput, TDef, TInput>,
+  formData: FormData
+): { data?: TOutput; state?: ActionState } {
   const raw: Record<string, unknown> = {};
   for (const [key, value] of formData.entries()) {
     if (key.endsWith("[]")) {
