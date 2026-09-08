@@ -11,3 +11,4 @@ next-env.d.ts.timestamp
 tsconfig.tsbuildinfo
 
 .vercel
+.env*
